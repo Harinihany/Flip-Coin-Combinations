@@ -1,6 +1,6 @@
 #! /bin/bash
 
-echo -e "1: For Singlet \n2: For Doublet"
+echo -e "1: For Singlet \n2: For Doublet \n3: For Triplet"
 declare -A combinationDictionary
 
 function singlet()
@@ -32,7 +32,7 @@ echo "Head: ${combinationDictionary[0]} Tail: ${singletDictionary[1]}"
 function Doublet()
 {
  num=$1
-         for ((counter=1; counter <= $num; counter++))
+        for ((counter=1; counter <= $num; counter++))
         do
                 flip=$((RANDOM%4))
                 combinationDictionary[$flip]=$((${combinationDictionary[$flip]} +1))
@@ -58,6 +58,55 @@ function Doublet()
         fi
 
         echo "HH: ${combinationDictionary[0]} TT: ${combinationDictionary[1]}  HT : ${combinationDictionary[2]}   TH : ${combinationDictionary[3]}"
+
+}
+
+
+function Triplet()
+{
+num=$1
+        for ((counter=1; counter < $num; counter++))
+        do
+                flip=$((RANDOM%8))
+                combinationDictionary[$flip]=$((${combinationDictionary[$flip]} +1))
+        done
+        HHH=$((${combinationDictionary[0]}*100 / $num ))
+        TTT=$((${combinationDictionary[1]}*100 / $num ))
+        THH=$((${combinationDictionary[2]}*100 / $num ))
+        TTH=$((${combinationDictionary[3]}*100 / $num ))
+        THT=$((${combinationDictionary[4]}*100 / $num ))
+        HTT=$((${combinationDictionary[5]}*100 / $num ))
+        HTH=$((${combinationDictionary[6]}*100 / $num ))
+        HHT=$((${combinationDictionary[7]}*100 / $num ))
+
+
+        echo "--------------------------------------------------------------------------------------"
+        if (( $HHH > $TTT && $HHH > $THH && $HHH > $TTH && $HHH > $THT && $HHH > $HTT && $HHH > $HTH && $HHH > $HHT ))
+        then
+                echo "HHH = $HHH %"
+        elif (( $TTT > $HHH && $TTT > $THH && $TTT > $TTH && $TTT > $THT && $TTT > $HTT && $TTT > $HTH && $TTT > $HHT ))
+        then
+                echo "TTT = $TTT %"
+        elif (( $THH > $TTT && $THH > $HHH && $THH > $TTH && $THH > $THT && $THH > $HTT && $THH > $HTH && $THH > $HHT ))
+        then
+                echo "THH = $THH %"
+	elif (( $TTH > $TTT && $TTH > $THH && $TTH > $HHH && $TTH > $THT && $TTH > $HTT && $TTH > $HTH && $TTH > $HHT ))
+	then
+			echo "TTH: $TTH %"
+	elif (( $THT > $TTT && $THT > $THH && $THT > $TTH > $THT > $HHH && $THT > $HTT && $THT > $HTH && $THT > $HHT ))
+	then
+		echo "THT : $THT %"
+	elif (( $HTT > $TTT && $HTT > $THH && $HTT > $TTH && $HTT > $THT && $HTT > $HHH && $HTT > $HTH && $HTT > $HHT ))
+	then
+		echo "HTT : $HTT %"
+	elif (( $HHT > $TTT && $HHT > $THH && $HHT > $TTH && $HHT > $THT && $HHT > $HTT && $HHT > $HTH && $HHT > $HHH ))
+	then
+		echo "HHT : $HHT %"
+        else
+                echo "HTH = $HTH %"
+
+        fi
+
 
 }
 
