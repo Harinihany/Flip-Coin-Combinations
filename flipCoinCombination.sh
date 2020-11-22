@@ -6,10 +6,10 @@ declare -A combinationDictionary
 function singlet()
 {
 num=$1
-for ((counter=1; counter <= $num; counter++))
-do
-	flip=$((RANDOM%2))
-	combinationDictionary[$flip]=$((${combinationDictionary[$flip]} +1))	
+	for ((counter=1; counter <= $num; counter++))
+	do
+		flip=$((RANDOM%2))
+		combinationDictionary[$flip]=$((${combinationDictionary[$flip]} +1))	
 
 done
 singHeadProb=$(( (${combinationDictionary[0]}*100) / $num ))
@@ -25,13 +25,17 @@ else
 	echo "Tail = $singTailProb %"
 fi
 
-echo "Head: ${combinationDictionary[0]} Tail: ${singletDictionary[1]}"
+	echo "Head: ${combinationDictionary[0]} Tail: ${singletDictionary[1]}"
+
+
+sortedDict=($(echo ${combinationDictionary[@]} | tr " " "\n" | sort -n))
+echo "In Sorted Order : ${sortedDict[@]}"
 
 }
 
 function Doublet()
 {
- num=$1
+num=$1
         for ((counter=1; counter <= $num; counter++))
         do
                 flip=$((RANDOM%4))
@@ -57,7 +61,9 @@ function Doublet()
 
         fi
 
-        echo "HH: ${combinationDictionary[0]} TT: ${combinationDictionary[1]}  HT : ${combinationDictionary[2]}   TH : ${combinationDictionary[3]}"
+        echo "HH: ${combinationDictionary[0]} TT: ${combinationDictionary[1]}  HT : ${combinationDictionary[2]}   TH : ${combinationDictionary[3]}"	
+sortedDict=($(echo ${combinationDictionary[@]} | tr " " "\n" | sort -n))
+echo "In Sorted Order : ${sortedDict[@]}"
 
 }
 
@@ -106,6 +112,9 @@ num=$1
                 echo "HTH = $HTH %"
 
         fi
+
+sortedDict=($(echo ${combinationDictionary[@]} | tr " " "\n" | sort -n))
+echo "In Sorted Order : ${sortedDict[@]}"
 
 
 }
